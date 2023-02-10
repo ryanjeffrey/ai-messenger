@@ -17,11 +17,13 @@ function HomePage() {
           </div>
 
           <div className="space-y-2">
-            <p className="infoText">"Explain something to me"</p>
+            <p className="infoText">"Teach me how to play the ukelele"</p>
             <p className="infoText">
-              "What is the difference between a dog and a cat?"
+              "Write a song about surrealist art in the style of lil wayne"
             </p>
-            <p className="infoText">"What is the color of the sun?"</p>
+            <p className="infoText">
+              "What are the most valuable Basquiat paintings and their prices?"
+            </p>
           </div>
         </div>
 
