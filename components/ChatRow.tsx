@@ -18,20 +18,20 @@ function ChatRow({ id }: Props) {
   const [active, setActive] = useState(false);
 
   const [messages] = useCollection(
-    query(
-      collection(db, "users", session?.user?.email!, "chats", id, "messages"),
-      orderBy("createdAt", "asc")
-    )
+    collection(db, "users", session?.user?.email!, "chats", id, "messages")
   );
 
   useEffect(() => {
     if (!pathname) return;
 
     setActive(pathname.includes(id));
-  }, [pathname])
+  }, [pathname]);
 
   return (
-    <Link href={`/chat/${id}`} className={`chatRow justify-center ${active && "bg-gray-700/50"}`}>
+    <Link
+      href={`/chat/${id}`}
+      className={`chatRow justify-center ${active && "bg-gray-700/50"}`}
+    >
       <ChatBubbleLeftIcon className="h-5 w-5" />
       {/* Pull the last bit of text from the message or return "New Chat" */}
       <p className="flex-1 hidden md:inline-flex truncate">
