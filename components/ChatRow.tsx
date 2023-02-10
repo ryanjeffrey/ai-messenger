@@ -3,7 +3,7 @@ import { collection, orderBy, query } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../firebase";
 
@@ -24,8 +24,14 @@ function ChatRow({ id }: Props) {
     )
   );
 
+  useEffect(() => {
+    if (!pathname) return;
+
+    setActive(pathname.includes(id));
+  }, [pathname])
+
   return (
-    <Link href={`/chat/${id}`} className={`chatRow justify-center`}>
+    <Link href={`/chat/${id}`} className={`chatRow justify-center ${active && "bg-gray-700/50"}`}>
       <ChatBubbleLeftIcon className="h-5 w-5" />
       {/* Pull the last bit of text from the message or return "New Chat" */}
       <p className="flex-1 hidden md:inline-flex truncate">
