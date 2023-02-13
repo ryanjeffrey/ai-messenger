@@ -3,6 +3,7 @@
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { collection, orderBy, query } from "firebase/firestore";
 import { useSession } from "next-auth/react";
+import { useEffect, useRef } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../firebase";
 import Message from "./Message";
@@ -29,6 +30,16 @@ function Chat({ chatId }: Props) {
       )
   );
 
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return <div className="flex-1 overflow-y-auto overflow-x-hidden">
     {messages?.empty && (
         <>
@@ -42,6 +53,7 @@ function Chat({ chatId }: Props) {
     {messages?.docs.map((message) => (
         <Message key={message.id} message={message.data()} />
     ))}
+    <div ref={messagesEndRef} />
   </div>;
 }
 export default Chat;
